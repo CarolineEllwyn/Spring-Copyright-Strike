@@ -31,7 +31,7 @@ public class Customer {
         this.fax= fax;
         this.email= email;
     }
-    
+
     public int getCustomerId() {
         return customerId;
     }
