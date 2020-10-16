@@ -6,25 +6,27 @@ import springboot.springusersplaylists.models.Customer;
 
 import java.util.ArrayList;
 
+
+
+
 @RestController
 public class CustomerController {
     CustomerRepository customerRepository = new CustomerRepository();
 
     @RequestMapping(value = "/api/customers", method = RequestMethod.GET)
-    public ArrayList<Customer> getAllCustomers() { return customerRepository.getAllCustomers(); }
-
-/*    @GetMapping("/")
-    public String index(){
-        return "Helloooooo!!";
+    public ArrayList<Customer> getAllCustomers() {
+        return customerRepository.getAllCustomers();
     }
 
-    @RequestMapping(value = "/greet", method = RequestMethod.GET)
-    public String greet(@RequestParam("name") String name){
-       return "Howdy " + name;
+    @RequestMapping(value = "/api/addNewCustomer", method = RequestMethod.POST)
+    public Boolean addNewCustomer(@RequestBody Customer customer) {
+        return customerRepository.addNewCustomer(customer);
     }
 
-    @RequestMapping(value = "/{firstName}/{lastName}", method = RequestMethod.GET)
-    public String getCustomer(@PathVariable String firstName, @PathVariable String lastName) {
-        return firstName + " " + lastName;
+/*    @RequestMapping(value = "/api/customers", method = RequestMethod.PUT)
+    public Boolean uppdateCustomer(@RequestBody Customer customer) {
+        return customerRepository.updateCustomer(customer);
     }*/
 }
+
+

@@ -4,7 +4,7 @@ public class Customer {
     private int customerId;
     private String firstName;
     private String lastName;
-    private String comapny;
+    private String company;
     private String address;
     private String city;
     private String state;
@@ -17,19 +17,12 @@ public class Customer {
     public Customer(){
     }
 
-    public Customer(int costomerId, String firstName, String lastName, String comapny, String address, String city, String state, String country, String postalCode, String phone, String fax, String email){
+    public Customer(int costomerId, String firstName, String lastName, String country, String postalCode, String phone){
         this.customerId = costomerId;
         this.firstName= firstName;
         this.lastName= lastName;
-        this.comapny= comapny;
-        this.address= address;
-        this.city= city;
-        this.state= state;
         this.country= country;
         this.postalCode= postalCode;
-        this.phone= phone;
-        this.fax= fax;
-        this.email= email;
     }
 
     public int getCustomerId() {
@@ -50,11 +43,11 @@ public class Customer {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public String getComapny() {
-        return comapny;
+    public String getCompany() {
+        return company;
     }
-    public void setComapny(String comapny) {
-        this.comapny = comapny;
+    public void setCompany(String comapny) {
+        this.company = comapny;
     }
     public String getAddress() {
         return address;
@@ -68,6 +61,10 @@ public class Customer {
     public void setCity(String city) {
         this.city = city;
     }
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) { this.state = state; }
     public String getCountry() {
         return country;
     }

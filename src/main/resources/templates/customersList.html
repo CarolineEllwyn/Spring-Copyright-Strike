@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body>
+<h1>Customers</h1>
+<br/>
+<tabel border="1" cellpadding="10" align="center">
+    <tr>
+        <td>ID</td>
+        <td>Firstname</td>
+        <td>Lastname</td>
+        <td>Country</td>
+        <td>Postal Code</td>
+        <td>Phone number</td>
+    </tr>
+    <tr th:each="customer: ${customers}">
+        <td th:text="${customer.getCustomerId()}"></td>
+        <td th:text="${customer.getFirstName()}"></td>
+        <td th:text="${customer.getLastName()}"></td>
+        <td th:text="${customer.getCountry()}"></td>
+        <td th:text="${customer.getPostalCode()}"></td>
+        <td th:text="${customer.getPhone()}"></td>
+    </tr>
+</tabel>
+</body>
+</html>
