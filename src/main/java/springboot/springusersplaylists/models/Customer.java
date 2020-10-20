@@ -1,5 +1,6 @@
 package springboot.springusersplaylists.models;
 
+//This is a model of a completed customer.
 public class Customer {
     private int customerId;
     private String firstName;
@@ -14,9 +15,11 @@ public class Customer {
     private String fax;
     private String email;
 
+    //this is a empty constructor
     public Customer(){
     }
 
+    //this is a constructor that takes in the parameters a customer requires
     public Customer(int customerId, String firstName, String lastName, String company, String address, String city, String state, String country, String postalCode, String phone, String fax, String email){
         this.customerId = customerId;
         this.firstName = firstName;
@@ -33,6 +36,7 @@ public class Customer {
     }
 
 
+    //This is getters and setters for all the parameters
     public int getCustomerId() {
         return customerId;
     }

@@ -6,6 +6,7 @@ import springboot.springusersplaylists.models.*;
 
 import java.util.ArrayList;
 
+//This is a controller that specifies the endpoints of each method
 
 @RestController
 public class CustomerController {

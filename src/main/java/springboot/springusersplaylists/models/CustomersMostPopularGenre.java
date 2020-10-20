@@ -1,7 +1,7 @@
 package springboot.springusersplaylists.models;
 
+//This is a model of customers sorted by highest spending on tracks grouped by genre.
 public class CustomersMostPopularGenre {
-
 
     private int mostPopularGenre;
 
@@ -11,18 +11,15 @@ public class CustomersMostPopularGenre {
 
     private String genreName;
 
-
-
+    //this is an constructor with the parameters that the model required.
     public CustomersMostPopularGenre(String firstName, String lastName, String genreName, int mostPopularGenre) {
-
         this.firstName = firstName;
         this.lastName = lastName;
         this.genreName = genreName;
         this.mostPopularGenre = mostPopularGenre;
-
-
     }
 
+    //this is getters and setters
     public String getFirstName() {
         return firstName;
     }

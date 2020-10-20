@@ -1,4 +1,6 @@
 package springboot.springusersplaylists.models;
+
+//This is a model of a modified customer.
 public class CustomerDTO {
     private int customerId;
     private String firstName;
@@ -7,7 +9,7 @@ public class CustomerDTO {
     private String postalCode;
     private String phone;
 
-
+    //this is a constructor that takes in the parameters a modified customer requires
     public CustomerDTO(int customerId, String firstName, String lastName, String country, String postalCode, String phone){
         this.customerId = customerId;
         this.firstName= firstName;
@@ -17,6 +19,7 @@ public class CustomerDTO {
         this.phone= phone;
     }
 
+    //This is getters and setters for all the parameters
     public int getCustomerId() {
         return customerId;
     }

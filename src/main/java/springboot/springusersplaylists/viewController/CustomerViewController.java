@@ -10,7 +10,7 @@ import springboot.springusersplaylists.models.CustomerDTO;
 
 import java.util.ArrayList;
 
-
+//This is only the start of an attempt to make a view controller. Not finished.
 @Controller
 public class CustomerViewController {
     CustomerRepository customerRepository = new CustomerRepository();

@@ -1,25 +1,28 @@
 package springboot.springusersplaylists.data_access;
 
-
 import springboot.springusersplaylists.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class CustomerRepository {
-    private String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";
+    private String URL = "jdbc:sqlite::resource:Chinook_Sqlite.sqlite";     // This is the connection to the database.
     private Connection conn = null;
 
+    /*
+     Setup methods to manipulate database, using conn = DriverManager.getConnection(URL);
+     and prepared statements.
+    */
 
-    public ArrayList<CustomerDTO> getAllCustomers() {
-        ArrayList<CustomerDTO> customers = new ArrayList<>();
+    public ArrayList<CustomerDTO> getAllCustomers() {   //This method prints all the customers that are registered in the database.
+        ArrayList<CustomerDTO> customers = new ArrayList<>();   //This is a placeholder for all customers.
 
         try {
-            conn = DriverManager.getConnection(URL);
-            PreparedStatement prep = conn.prepareStatement("SELECT customerId, firstName, lastName, country, postalCode, phone FROM Customer");
+            conn = DriverManager.getConnection(URL);       //connecting to database
+            PreparedStatement prep = conn.prepareStatement("SELECT customerId, firstName, lastName, country, postalCode, phone FROM Customer"); // This is an SQL-query that gives us the values we want from all customers.
             ResultSet set = prep.executeQuery();
             while (set.next()) {
-                customers.add(new CustomerDTO(
+                customers.add(new CustomerDTO(      //Adding all customer to the arrayList customer
 
                         set.getInt("customerId"),
                         set.getString("firstName"),
@@ -36,7 +39,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();       // closing the connection to the database
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }
@@ -44,13 +47,13 @@ public class CustomerRepository {
         return customers;
     }
 
-    public Boolean addNewCustomer(Customer customer) {
+    public Boolean addNewCustomer(Customer customer) {      //This method add a new customer to the database
         Boolean success = false;
         try {
-            conn = DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);      //connecting to database
             PreparedStatement prep = conn.prepareStatement(
                     "INSERT INTO customer( customerId, firstName, lastName, company, address, city, state, country, postalCode, phone, fax, email )" +
-                            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");        // This is an SQL-query that create a new customer in the database.
             prep.setInt(1, customer.getCustomerId());
             prep.setString(2, customer.getFirstName());
             prep.setString(3, customer.getLastName());
@@ -75,7 +78,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();       //close connection to database
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }
@@ -83,14 +86,14 @@ public class CustomerRepository {
         return success;
     }
 
-    public Boolean updateCustomer(Customer customer) {
+    public Boolean updateCustomer(Customer customer) {      //This method updates a customer values.
         Boolean success = false;
         try {
 
-            conn = DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);        //connecting to database
             PreparedStatement prep =
                     conn.prepareStatement("UPDATE customer SET firstName=?, lastName=?, country=?, postalCode=?, phone=?, email=?" +
-                            " WHERE customerId=?");
+                            " WHERE customerId=?");              // This is an SQL-query that updates a already existing customer with given values.
 
             prep.setString(1, customer.getFirstName());
             prep.setString(2, customer.getLastName());
@@ -109,7 +112,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();       //closing database connection
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }
@@ -117,13 +120,13 @@ public class CustomerRepository {
         return success;
     }
 
-    public ArrayList<CustomersByCountry> getCustomersByCountry() {
+    public ArrayList<CustomersByCountry> getCustomersByCountry() {      //This method list all customers by country by descending order.
         ArrayList<CustomersByCountry> numberOfCustomers = new ArrayList<>();
 
         try {
-            conn = DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);     //connecting to database
             PreparedStatement prep =
-                    conn.prepareStatement("SELECT Country, COUNT (*) as Quantity FROM Customer GROUP BY Country ORDER BY COUNT(*) DESC;");
+                    conn.prepareStatement("SELECT Country, COUNT (*) as Quantity FROM Customer GROUP BY Country ORDER BY COUNT(*) DESC;"); // This is an SQL-query that count all customers grouped by country.
             ResultSet set = prep.executeQuery();
             while (set.next()) {
                 numberOfCustomers.add(new CustomersByCountry(
@@ -137,7 +140,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();           //closing database connection
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }
@@ -145,18 +148,18 @@ public class CustomerRepository {
         return numberOfCustomers;
     }
 
-    public ArrayList<CustomersHighestSpenders> getCustomersHighestSpenders() {
+    public ArrayList<CustomersHighestSpenders> getCustomersHighestSpenders() {      //Method that list the highest spending customer in an descending order.
         ArrayList<CustomersHighestSpenders> mostWastefulCustomers = new ArrayList<>();
 
         try {
-            conn = DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);        //connecting to database
             PreparedStatement prep =
                     conn.prepareStatement("SELECT Customer.FirstName, Customer.LastName, Invoice.Total\n" +
                             "FROM Customer\n" +
-                            "    JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId ORDER BY total DESC;");
+                            "    JOIN Invoice ON Customer.CustomerId = Invoice.CustomerId ORDER BY total DESC;"); // This is an SQL-query that takes out the total spent by each customer and list them in a descending order..
             ResultSet set = prep.executeQuery();
             while (set.next()) {
-                mostWastefulCustomers.add(new CustomersHighestSpenders(
+                mostWastefulCustomers.add(new CustomersHighestSpenders(         // Adding all the customers to arraylist mostWastefulCustomers.
 
                         set.getString(1),
                         set.getString(2),
@@ -168,7 +171,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();           //closing database connection
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }
@@ -177,13 +180,13 @@ public class CustomerRepository {
     }
 
 
-    public ArrayList<CustomersMostPopularGenre> getCustomersMostPopularGenre(int customerId) {
+    public ArrayList<CustomersMostPopularGenre> getCustomersMostPopularGenre(int customerId) {      //Method that shows customers most popular genre(s).
 
         ArrayList<CustomersMostPopularGenre> mostPopularGenre = new ArrayList<>();
         var filteredPopularGenres = new ArrayList<CustomersMostPopularGenre>();
         try {
 
-            conn = DriverManager.getConnection(URL);
+            conn = DriverManager.getConnection(URL);        //connecting to database
             PreparedStatement prep =
                     conn.prepareStatement("    SELECT Customer.FirstName, Customer.LastName, Genre.Name, COUNT (*) AS Total FROM InvoiceLine\n" +
                             "JOIN Track ON InvoiceLine.TrackId = Track.TrackId\n" +
@@ -192,7 +195,7 @@ public class CustomerRepository {
                             "JOIN Customer ON Invoice.CustomerId = Customer.CustomerId\n" +
                             "WHERE Customer.CustomerId = ?\n" +
                             "GROUP BY Genre.Name\n" +
-                            "ORDER BY Total DESC LIMIT 2;");
+                            "ORDER BY Total DESC LIMIT 2;");    // This is an SQL-query that takes out the two most popular genre based on purchased tracks.
 
             prep.setInt(1, customerId);
             ResultSet set = prep.executeQuery();
@@ -207,14 +210,14 @@ public class CustomerRepository {
                 ));
 
 
-                System.out.println("Get highest spent customer went well!");
+                System.out.println("Get the most popular genre went well!");
             }
             var max = 0;
 
             max = Math.max(max, mostPopularGenre.get(0).getMostPopularGenre());
             ;
-            for (var genre : mostPopularGenre
-            ) {
+            for (var genre : mostPopularGenre                   //this loop looks for the highest value of the most popular genre.
+            ) {                                                 //if there are two genre of the same value, the both are printed.
                 if (max == genre.getMostPopularGenre()) {
                     filteredPopularGenres.add(genre);
                 }
@@ -224,7 +227,7 @@ public class CustomerRepository {
             System.out.println(exception.toString());
         } finally {
             try {
-                conn.close();
+                conn.close();           //closing database connection
             } catch (Exception exception) {
                 System.out.println(exception.toString());
             }

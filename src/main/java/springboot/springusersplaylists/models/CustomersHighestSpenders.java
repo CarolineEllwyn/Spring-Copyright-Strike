@@ -1,5 +1,6 @@
 package springboot.springusersplaylists.models;
 
+//This is a model of customers sorted by total amount spent.
 public class CustomersHighestSpenders {
 
     private double totalSpent;
@@ -8,15 +9,14 @@ public class CustomersHighestSpenders {
 
     private String lastName;
 
+    //this is an constructor with the parameters that the model required.
     public CustomersHighestSpenders(String firstName, String lastName, double totalSpent){
-
         this.firstName = firstName;
         this.lastName = lastName;
         this.totalSpent = totalSpent;
-
-
     }
 
+    //this is getters and setters
     public String getFirstName() {
         return firstName;
     }
