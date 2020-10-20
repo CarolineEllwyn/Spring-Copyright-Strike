@@ -2,10 +2,7 @@ package springboot.springusersplaylists.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import springboot.springusersplaylists.data_access.CustomerRepository;
-import springboot.springusersplaylists.models.Customer;
-import springboot.springusersplaylists.models.CustomerDTO;
-import springboot.springusersplaylists.models.CustomersByCountry;
-import springboot.springusersplaylists.models.CustomersHighestSpenders;
+import springboot.springusersplaylists.models.*;
 
 import java.util.ArrayList;
 
@@ -39,6 +36,12 @@ public class CustomerController {
     public ArrayList<CustomersHighestSpenders> getCustomersHighestSpenders(){
         ArrayList<CustomersHighestSpenders> mostWastefulCustomers = customerRepository.getCustomersHighestSpenders();
         return mostWastefulCustomers;
+    }
+
+    @GetMapping (value = "/api/customer/customersMostPopularGenre/{id}")
+    public ArrayList<CustomersMostPopularGenre> getCustomersMostPopularGenre(@PathVariable String id){
+        ArrayList<CustomersMostPopularGenre> mostPopularGenres = customerRepository.getCustomersMostPopularGenre(Integer.parseInt(id));
+        return mostPopularGenres;
     }
 
 
